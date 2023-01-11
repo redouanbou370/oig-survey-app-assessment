@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-10">
+        <h1>Questionnaires</h1>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-success" (click)="add()" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100%">Add Questionnaire</button>
+    </div>
+</div>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Dates</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of allQuestions">
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.startDate }} - {{ item.endDate }}</td>
+            <td>
+                <button type="button" (click)="edit(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Wijzigen</button> &nbsp;
+                <button class="btn btn-danger" (click)="deleteRecord(item.id)">Verwijderen</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Questionnaire</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formValue">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Naam</label>
+                        <input type="text" formControlName="name" name="name" class="form-control" id="name" placeholder="Naam ...">
+                        <small *ngIf="formValue.get('name')?.invalid && formValue.get('name')?.touched" class="text-danger">Name is required!</small>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">Start date</label>
+                        <input type="datetime-local" formControlName="startDate" name="startDate" class="form-control" id="startDate" min="2023-01-01T00:00">
+                        <small *ngIf="formValue.get('startDate')?.invalid && formValue.get('startDate')?.touched" class="text-danger">Start date is required!</small>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">End date</label>
+                        <input type="datetime-local" formControlName="endDate" name="endDate" class="form-control" id="endDate" min="2023-01-01T00:00">
+                        <small *ngIf="formValue.get('endDate')?.invalid && formValue.get('endDate')?.touched" class="text-danger">End date is required!</small>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">Select a status</label>
+                        <select class="form-control" id="statusId" formControlName="statusId" name="status">
+                            <option *ngFor="let prf of allStatus" [ngValue]="prf.id">
+                                {{ prf.name }}
+                            </option>
+                        </select>
+                        <small *ngIf="formValue.get('statusId')?.invalid && formValue.get('statusId')?.touched" class="text-danger">status is required!</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                <button *ngIf="showAdd" (click)="addQuestionnaire()" [disabled]="formValue.invalid" type="button" class="btn btn-success">Add</button>
+                <button *ngIf="showUpdate" (click)="updateQuestionnaire()" [disabled]="formValue.invalid" type="button" class="btn btn-success">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
