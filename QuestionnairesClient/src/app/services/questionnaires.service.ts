@@ -20,12 +20,6 @@ export class QuestionnaireService {
         }));    
     }
 
-    getQuestionnaire(id: number) {
-        return this.http.get<any>(`this.baseUrl/${id}`).pipe(map((res: any) => {
-            return res;
-        }));
-    }
-
     createQuestionnaire(questionnaire: Questionnaire) {
         return this.http.post<any>(this.baseUrl, questionnaire).pipe(map((res: any) => {
             return res;
