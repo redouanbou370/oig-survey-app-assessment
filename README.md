@@ -8,7 +8,7 @@ Coding assessment for new developers @ OIG
 
 ### Run PostgreSQL in Docker
 *  Clone the project to your laptop or computer
-* Go to the folder using ``` oig-survey-app-assessment ```
+* Go to the folder using ``` cd oig-survey-app-assessment ```
 * In the terminal, use the command: ``` docker-compose up -d ```
 * This will create a postgress image that's running on port 5432. The credentials of the user is as follows: 
   * Username: postgres
